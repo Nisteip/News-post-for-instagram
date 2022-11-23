@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" style="background-image: url('../static/images/wallpaper.jpg');
+background-attachment: fixed;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News Post</title>
+    <link rel="stylesheet" href="static\app.css" />
+  </head>
+  <div class="logo">
+    <img src="static/images/logo.png" alt="logo_img">
+  </div>
+  <p>
+    <div class="list-news" id="container">
+      <img src="" alt="img" id="bg">
+      <div class="centered">
+        {% for i in range (7): %}
+        <ul>
+          <p class="news">
+            <li>{{News[i]|safe}}</li>
+          </p>
+        </ul>
+        {% endfor %}
+      </div>
+    </div></p>
+    <div class="button">
+      <button class="btn" onclick="download()">Download Post</button>
+    </div>
+    <script>
+        var newbg = document.getElementById("bg");
+        var background = new Image();
+        background.src = "static/images/" + (Math.floor(Math.random() * (7)) + 1) + ".jpg";
+        newbg.src = background.src;
+        console.log(newbg.src);
+    </script>
+    <script src="/static/js/h2c.min.js"></script>
+    <script>
+        function download() {
+            html2canvas(document.getElementById("container")).then(canvas => {
+                //document.body.appendChild(canvas);
+                var a = document.createElement('a');
+                a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+                a.download = 'news.jpg';
+                a.click();
+            });
+        }
+    </script>
+  </body>
+</html>
